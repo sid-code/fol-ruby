@@ -64,16 +64,15 @@ module FOL
     end
     
     def consume token
-      token = [token] if !token.kind_of? Array
+      expected_tokens = [token] if !token.kind_of? Array
       
-      t = @tokens[@index]
-      tt = t[1]
+      recieved_token = @tokens[@index] # This will give [String value of Token, Actual Token]
+      recieved_token_type = recieved_token[1]
       @index += 1
       
-      raise SyntaxError, "Expected #{token} got #{tt}" if !token.index tt
-      #puts "#{tt} consumed (#{t[0]})"
+      expected_tokens.index(recieved_token_type) or raise SyntaxError, "Expected #{expected_tokens} got #{recieved_token_type}"
       
-      return t
+      recieved_token
     end
     
     def peek n=0
