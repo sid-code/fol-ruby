@@ -172,17 +172,20 @@ module FOL
     
     def subterms
       # This is slightly difficult because if we have nested BinaryOperations
-      # e.g. ((A ^ B) ^ C), B ^ C won't be listed as a subterm using the old method:
-      # [self, @term1.subterms, @term2.subterms]
+      #   e.g. ((A ^ B) ^ C), B ^ C won't be listed as a subterm using the old method:
+      #   [self, @term1.subterms, @term2.subterms]
       
-      # The new method recursively checks for nested BinaryOperations inside this one
-      # and finds the subterms of those.
+      #   The new method recursively checks for nested BinaryOperations inside this one
+      #   and finds the subterms of those.
       
       if @operator.associative?
         
         all_ops = get_ops
         all_ops_subsets = (0..all_ops.size - 2).map { |n1| 
           (0..all_ops.size - n1 - 1).map { |n2| all_ops[n2..n2 + n1] } 
+          # Basically what this part does is split an array like [A, B, C] into 
+          #  [[A], [B], [C], [A, B], [B, C], [A, B, C]], so all subterms but
+          #  only ones near eachother
         }.flatten(1).map { |c| 
           c.inject { |cur,nxt| FOL::BinaryOperation.new(cur,nxt,@operator) }
         }.compact.reject { |t| t == self } # removes that nil that #combination_n gives us 
@@ -198,8 +201,8 @@ module FOL
     
     def replace what, to
       s = super(what, to)
-      
       return s if s == to
+      
       t1, t2, op = @term1, @term2, @operator
       
       if what.is_bop? && what.operator == @operator && @operator.associative?
@@ -214,11 +217,13 @@ module FOL
             what_ops.each_with_index do |wop, wi|
               match = wop == self_ops[si + wi]
             end 
-            # I'd probably use a different method in this case with #with_index but
-            # Opal doesn't support it
+            # I'd probably use a different method in this case with #with_index but Opal 
+            #   doesn't support it
             
             if match
               new_self_ops[si..si + what_ops.size - 1] = to
+              # Replace all of the elements to 'to' because they all seem to match
+              #   what we want to match
             end
           end
         end
