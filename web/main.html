@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="fol-client">
+      <p>H = F @ G</p>
+      <p><span class="inputlabel">H = </span><input type="text" class="formula-input" data-var="h" value="#x.P(x) ^ G(x) ^ H(x)" /></p>
+      <p><span class="inputlabel">G = </span><input type="text" class="formula-input" data-var="g" value="#u.#x.P(x) ^ u" /></p>
+      <p><span class="outputlabel">F = </span><span class="output"></span></p>
+      <p><button class="inverse-l-solve">Solve</button></p>
+    </div>
+  </body>
+  
+  <style>
+  .output {
+    font: 11pt courier new;
+  }
+  </style>
+  
+  <script src="lib/jquery-2.0.3.min.js"></script>
+  <script src="../built/fol.js"></script> <!-- ? -->
+</html>
