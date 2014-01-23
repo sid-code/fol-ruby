@@ -1,5 +1,5 @@
 # This file exists solely because Opal hasn't implemented Array#permutation
-# Most of the code is coped from http://rosettacode.org/wiki/Permutations#Ruby
+# Most of the code is shamelessely copied from http://rosettacode.org/wiki/Permutations#Ruby
 ###########################################################################
 
 class Array
