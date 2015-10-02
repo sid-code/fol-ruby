@@ -8,7 +8,7 @@ fol-ruby is a lambda calculus and first order logic engine written in Ruby, but 
     
 (the .js file appears in a directory called built/, and you can test it by opening web/main.html)    
 # Usage
-Note: I don't think this is big enough to be used as a gem yet. However, if you want to include it in your programs, just copy the app folder into your program it should work.
+It's not a gem, you have include the three files shown below in your program to use it.
 
 ```ruby
 require "./app/lambda.rb"
